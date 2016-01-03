@@ -16,7 +16,11 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $task = \App\Task::get();
+        return response() -> json([
+            $task->toArray()
+            ], 200
+        );
     }
 
     /**

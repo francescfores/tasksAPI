@@ -17,3 +17,10 @@ Route::get('/', function () {
 
 Route::resource('task','TaskController');
 Route::resource('tag','TagController');
+
+//API
+Route::get('task','TaskController@index');
+Route::get('task/{id}','TagController@show');
+Route::post('task','TagController@store');
+Route::put('task/{id}','TagController@update');
+Route::delete('task/{id}','TagController@destroy');
