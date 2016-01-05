@@ -15,10 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $faker = Faker\Factory::create();
-
         $this->seedTasks($faker);
         $this->seedTags($faker);
-
         Model::reguard();
     }
 
@@ -33,7 +31,7 @@ class DatabaseSeeder extends Seeder
     }
 
     private function seedTags($faker){
-        foreach (range(0,100) as $number){
+        foreach (range(1,10) as $number){
             $tag= new Tag();
             $tag-> name= $faker->name();
             $tag->save();

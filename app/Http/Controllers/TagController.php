@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Tag;
 
 class TagController extends Controller
 {
@@ -16,7 +17,12 @@ class TagController extends Controller
      */
     public function index()
     {
-        //
+        $tag = Tag::get();
+        return response() -> json([
+            "msg" => "Success",
+            "tasks" => $tag->toArray()
+        ], 200
+        );
     }
 
     /**
@@ -37,7 +43,8 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Tag::create($request->all());
+        return ['created' => true];
     }
 
     /**
@@ -48,7 +55,7 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        //
+        return Tag::find($id);
     }
 
     /**
@@ -71,7 +78,9 @@ class TagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $task = Tag::find($id);
+        $task->update($request->all());
+        return ['updated' => true];
     }
 
     /**
@@ -82,6 +91,7 @@ class TagController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Tag::destroy($id);
+        return ['deleted' => true];
     }
 }

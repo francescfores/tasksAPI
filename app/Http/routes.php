@@ -19,13 +19,15 @@ Route::resource('task','TaskController');
 Route::resource('tag','TagController');
 
 //API
-//get all tasks
+
 Route::get('task','TaskController@index');
-//get one tasks
 Route::get('task/{id}','TaskController@show');
-//create task
 Route::post('task','TaskController@store');
-//update task
 Route::put('task/{id}','TaskController@update');
-//delete task
 Route::delete('task/{id}','TaskController@destroy');
+
+Route::get('tag','TagController@index');
+Route::get('tag/{id}','TagController@show');
+Route::post('tag','TagController@store');
+Route::put('tag/{id}','TagController@update');
+Route::delete('tag/{id}','TagController@destroy');
