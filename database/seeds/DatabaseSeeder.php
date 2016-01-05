@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
     }
 
     private function seedTasks($faker){
-        foreach (range(0,100) as $number){
+        foreach (range(1,10) as $number){
             $task= new Task();
             $task-> name= $faker->name();
             $task-> done= $faker->boolean();

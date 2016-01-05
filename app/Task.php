@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+header("Access-Control-Allow-Origin: *");
 
 class Task extends Model
 {
