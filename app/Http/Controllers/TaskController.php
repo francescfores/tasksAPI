@@ -17,10 +17,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $task = \App\Tag::get();
+        $task = \App\Task::get();
         return response() -> json([
             "msg" => "Success",
-            "tags" => $task->toArray()
+            "tasks" => $task->toArray()
             ], 200
         );
     }
