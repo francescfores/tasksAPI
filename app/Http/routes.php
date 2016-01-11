@@ -1,5 +1,4 @@
 <?php
-header("Access-Control-Allow-Origin: *");
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -19,7 +18,6 @@ Route::resource('task','TaskController');
 Route::resource('tag','TagController');
 
 //API
-
 Route::get('task','TaskController@index');
 Route::get('task/{id}','TaskController@show');
 Route::post('task','TaskController@store');

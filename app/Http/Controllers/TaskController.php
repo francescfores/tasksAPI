@@ -17,10 +17,10 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $task = \App\Task::get();
+        $task = Task::get();
         return response() -> json([
             "msg" => "Success",
-            "tasks" => $task->toArray()
+            "tasks" => $this->tranformCollection($task)
             ], 200
         );
     }
@@ -56,7 +56,19 @@ class TaskController extends Controller
      */
     public function show($id)
     {
-        return Task::find($id);
+        $task = Task::find($id);
+        if(!$task){
+            return response() -> json([
+            "msg" => "does not exist"            
+            ], 404
+        );
+        }else{            
+        return response() -> json([
+            "msg" => "Success",
+            "tasks" => $task
+            ], 200
+        );
+        }
     }
 
     /**
@@ -96,4 +108,20 @@ class TaskController extends Controller
         Task::destroy($id);
         return ['deleted' => true];
     }
+
+    public function tranformCollection($task)
+    {
+     return array_map([$this, 'tranform'],$task->toArray());
+    }
+    public function tranform($task)
+    {
+        return [
+            'name' => $task['name'],
+            'done' => $task['done'],
+            'priority' => $task['priority']
+        ];
+            
+
+    }
+    
 }
