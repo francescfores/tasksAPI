@@ -7,9 +7,22 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Tag;
+use App\Http\Transformers\TagTransformer;
 
 class TagController extends Controller
 {
+
+    protected $TagTransformer;
+
+    /**
+     * TagController constructor.
+     * @param $tagTransformer
+     */
+    public function __construct(TagTransformer $tagTransformer)
+    {
+        $this->TagTransformer = $tagTransformer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +30,10 @@ class TagController extends Controller
      */
     public function index()
     {
-        $tag = Tag::get();
+        $tags = Tag::get();
         return response() -> json([
             "msg" => "Success",
-            "tasks" => $tag->toArray()
+            "tags" => $this->TagTransformer->transformCollection($tags),
         ], 200
         );
     }
@@ -55,7 +68,19 @@ class TagController extends Controller
      */
     public function show($id)
     {
-        return Tag::find($id);
+        $tag = Tag::find($id);
+        if(!$tag){
+            return response() -> json([
+                "msg" => "does not exist"
+            ], 404
+            );
+        }else{
+            return response() -> json([
+                "msg" => "Success",
+                "tag" =>  $this->TagTransformer->transform($tag)
+            ], 200
+            );
+        }
     }
 
     /**

@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Task;
 use App\Http\Controllers\Controller;
+use App\Http\Transformers\TaskTransformer;
 
 class TaskController extends Controller
 {
+    protected $TaskTransformer;
+    protected $tagTransformer;
+
+    public function __construct(TaskTransformer $TaskTransformer)
+    {
+         $this->TaskTransformer = $TaskTransformer;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,10 +26,12 @@ class TaskController extends Controller
      */
     public function index()
     {
-        $task = Task::get();
+        $transformer = new TaskTransformer();
+
+        $tasks = Task::get();
         return response() -> json([
             "msg" => "Success",
-            "tasks" => $this->tranformCollection($task)
+            "tasks" =>  $this->TaskTransformer->transformCollection($tasks)
             ], 200
         );
     }
@@ -65,7 +76,7 @@ class TaskController extends Controller
         }else{            
         return response() -> json([
             "msg" => "Success",
-            "tasks" => $task
+            "task" =>  $this->TaskTransformer->transform($task)
             ], 200
         );
         }
@@ -109,11 +120,11 @@ class TaskController extends Controller
         return ['deleted' => true];
     }
 
-    public function tranformCollection($task)
+    public function transformCollection($task)
     {
-     return array_map([$this, 'tranform'],$task->toArray());
+     return array_map([$this, 'transform'],$task->toArray());
     }
-    public function tranform($task)
+    public function transform($task)
     {
         return [
             'name' => $task['name'],
