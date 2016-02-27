@@ -10,7 +10,6 @@
     <body>
         <h2>Employees Database</h2>
 
-
 	<script src="node_modules/angular/angular.js"></script>
 	<script src="node_modules/angular-resource/angular-resource.js"></script>
 	<script src="node_modules/angular-route/angular-route.js"></script>
