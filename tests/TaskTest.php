@@ -15,4 +15,9 @@ class TastkTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function testTasksUseJson()
+    {
+        $this->get('/task')->seeJson()->seeStatusCode(200);
+    }
 }

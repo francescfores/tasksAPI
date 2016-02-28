@@ -31,10 +31,14 @@ class TagController extends Controller
     public function index()
     {
         $tags = Tag::get();
-        return response() -> json([
-            "msg" => "Success",
-            "tags" => $this->TagTransformer->transformCollection($tags),
-        ], 200
+//        return response() -> json([
+//            "msg" => "Success",
+//            "tags" => $this->TagTransformer->transformCollection($tags),
+//        ], 200
+//        );
+        return response() -> json(
+            $this->TagTransformer->transformCollection($tags),
+            200
         );
     }
 

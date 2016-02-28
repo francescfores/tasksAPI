@@ -29,11 +29,13 @@ class TaskController extends Controller
         $transformer = new TaskTransformer();
 
         $tasks = Task::get();
-        return response() -> json([
-            "msg" => "Success",
-            "tasks" =>  $this->TaskTransformer->transformCollection($tasks)
-            ], 200
-        );
+
+        $value = "{\"msg\":\"Success\",\"tasks\":[{\"name\":\"Josiah Thiel\",\"done\":\"1\",\"priority\":\"7\"},{\"name\":\"Buford Gerlach\",\"done\":\"1\",\"priority\":\"1\"},{\"name\":\"Abdiel Dooley\",\"done\":\"0\",\"priority\":\"5\"},{\"name\":\"Mr. Maximus Runolfsdottir III\",\"done\":\"1\",\"priority\":\"5\"},{\"name\":\"Dora Larkin\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Nia Cassin PhD\",\"done\":\"1\",\"priority\":\"5\"},{\"name\":\"Prof. Helmer Hoppe\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Marisol Ortiz\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Prof. Maryse McLaughlin\",\"done\":\"0\",\"priority\":\"7\"},{\"name\":\"Dr. Bill Kovacek V\",\"done\":\"1\",\"priority\":\"0\"}]}";
+//        return response() -> json([
+//            "msg" => "Success",
+//            "tasks" =>  $this->TaskTransformer->transformCollection($tasks)
+//            ], 200
+//        );
     }
 
 
