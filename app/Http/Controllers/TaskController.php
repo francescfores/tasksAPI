@@ -30,7 +30,10 @@ class TaskController extends Controller
 
         $tasks = Task::get();
 
-        $value = "{\"msg\":\"Success\",\"tasks\":[{\"name\":\"Josiah Thiel\",\"done\":\"1\",\"priority\":\"7\"},{\"name\":\"Buford Gerlach\",\"done\":\"1\",\"priority\":\"1\"},{\"name\":\"Abdiel Dooley\",\"done\":\"0\",\"priority\":\"5\"},{\"name\":\"Mr. Maximus Runolfsdottir III\",\"done\":\"1\",\"priority\":\"5\"},{\"name\":\"Dora Larkin\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Nia Cassin PhD\",\"done\":\"1\",\"priority\":\"5\"},{\"name\":\"Prof. Helmer Hoppe\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Marisol Ortiz\",\"done\":\"0\",\"priority\":\"1\"},{\"name\":\"Prof. Maryse McLaughlin\",\"done\":\"0\",\"priority\":\"7\"},{\"name\":\"Dr. Bill Kovacek V\",\"done\":\"1\",\"priority\":\"0\"}]}";
+        return Response::json(
+            $this->tagTransformer->transformCollection($tasks),
+            200
+        );
 //        return response() -> json([
 //            "msg" => "Success",
 //            "tasks" =>  $this->TaskTransformer->transformCollection($tasks)
@@ -67,7 +70,7 @@ class TaskController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, $task)
     {
         $task = Task::find($id);
         if(!$task){
@@ -75,12 +78,13 @@ class TaskController extends Controller
             "msg" => "does not exist"            
             ], 404
         );
-        }else{            
-        return response() -> json([
-            "msg" => "Success",
-            "task" =>  $this->TaskTransformer->transform($task)
-            ], 200
+        } else {
+
+        return Response::json(
+            $this->TaskTransformer->transform($task),
+            200
         );
+
         }
     }
 
